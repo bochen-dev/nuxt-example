@@ -1,63 +1,47 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">nuxt-example</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div>
+    <h1>Events</h1>
+
+    <EventCard
+      v-for="(event, index) in events"
+      :key="event.id"
+      :event="event"
+      :data-index="index"
+    />
   </div>
 </template>
 
 <script>
-export default {}
+import EventCard from '@/components/EventCard.vue'
+import EventService from '@/services/EventService.js'
+
+export default {
+  components: {
+    EventCard,
+  },
+  head() {
+    return {
+      title: 'Event Listing',
+    }
+  },
+  /**
+   * context
+   *
+   * https://nuxtjs.org/docs/2.x/concepts/context-helpers
+   */
+  async asyncData({ error }) {
+    try {
+      const { data: events } = await EventService.getEvents()
+
+      return {
+        events,
+      }
+    } catch (err) {
+      error({
+        statusCode: 503,
+        message: 'Unable to fetch events at this time. Please try again.',
+      })
+    }
+  },
+}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

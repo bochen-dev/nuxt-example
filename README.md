@@ -17,4 +17,10 @@ $ yarn start
 $ yarn generate
 ```
 
+## API server
+``` bash
+# start api server
+$ json-server db.json --watch
+```
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
