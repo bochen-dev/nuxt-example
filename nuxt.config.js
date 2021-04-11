@@ -44,4 +44,10 @@ export default {
   build: {
     transpile: [/^element-ui/],
   },
+
+  target: 'static',
+
+  router: {
+    base: '/nuxt-example/'
+  }
 }

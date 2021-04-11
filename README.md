@@ -1,5 +1,10 @@
 # nuxt-example
 
+## Demo
+- [Universal Mode Deployment on Heroku](https://salty-fjord-70384.herokuapp.com/)
+- [Static Site Generated Deployment on GitHub Pages](https://bochen-dev.github.io/nuxt-example/)
+
+
 ## Build Setup
 
 ```bash
