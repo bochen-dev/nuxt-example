@@ -12,8 +12,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
 
 export default {
   components: {
@@ -29,19 +29,20 @@ export default {
    *
    * https://nuxtjs.org/docs/2.x/concepts/context-helpers
    */
-  async asyncData({ error }) {
+  async fetch({ store, error }) {
     try {
-      const { data: events } = await EventService.getEvents()
-
-      return {
-        events,
-      }
+      await store.dispatch('events/fetchEvents')
     } catch (err) {
       error({
         statusCode: 503,
         message: 'Unable to fetch events at this time. Please try again.',
       })
     }
+  },
+  computed: {
+    ...mapState({
+      events: (state) => state.events.events,
+    }),
   },
 }
 </script>
