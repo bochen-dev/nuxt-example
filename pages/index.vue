@@ -19,11 +19,6 @@ export default {
   components: {
     EventCard,
   },
-  head() {
-    return {
-      title: 'Event Listing',
-    }
-  },
   /**
    * context
    *
@@ -37,6 +32,11 @@ export default {
         statusCode: 503,
         message: 'Unable to fetch events at this time. Please try again.',
       })
+    }
+  },
+  head() {
+    return {
+      title: 'Event Listing',
     }
   },
   computed: {

@@ -40,6 +40,16 @@
 import { mapState } from 'vuex'
 
 export default {
+  async fetch({ error, params, store }) {
+    try {
+      await store.dispatch('events/fetchEvent', params.id)
+    } catch (err) {
+      error({
+        statusCode: 503,
+        message: `Unable to fetch event #${params.id}`,
+      })
+    }
+  },
   head() {
     return {
       title: this.event.title,
@@ -50,16 +60,6 @@ export default {
           content: `What you need to know about event #${this.event.title}`,
         },
       ],
-    }
-  },
-  async fetch({ error, params, store }) {
-    try {
-      await store.dispatch('events/fetchEvent', params.id)
-    } catch (err) {
-      error({
-        statusCode: 503,
-        message: `Unable to fetch event #${params.id}`,
-      })
     }
   },
   computed: {
